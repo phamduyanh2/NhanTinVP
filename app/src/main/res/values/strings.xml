@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">Nhantin</string>
+    <string-array name="stLoaiViPham">
+
+        <item>Làm nhà</item>
+        <item>Mái hiên</item>
+        <item>Hàng rào</item>
+        <item>Tường rào</item>
+        <item>Cổng</item>
+        <item>Lều quán</item>
+        <item>Đấu nối</item>
+        <item>Thi công</item>
+        <item>Đào đắp đất</item>
+
+        </string-array>
+
+
+    <string-array name="stDuong">
+
+        <item>QL24</item>
+        <item>ĐT671</item>
+        <item>ĐT674</item>
+        <item>ĐT675</item>
+        <item>ĐT676</item>
+        <item>ĐT677</item>
+        <item>Đường PleiKrong</item>
+        <item>QL40B</item>
+        <item>QL14C</item>
+        <item>QL40</item>
+        <item>ĐT672</item>
+        <item>ĐT673</item>
+        <item>ĐT678</item>
+        <item>Đường ĐăkKôi</item>
+        <item>Đường NH-MB-TR-NgọcLinh</item>
+        <item>Đường NgọcHồi-DốcMuối</item>
+
+></string-array>
+
+    <string-array name="stDanhBa">
+        <item>01693140011</item>
+        <item>0905442226</item>
+        <item>01678734239</item>
+
+    </string-array>
+</resources>
