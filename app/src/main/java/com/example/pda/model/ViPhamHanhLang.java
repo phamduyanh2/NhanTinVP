@@ -10,7 +10,7 @@ public class ViPhamHanhLang {
 
     private String soDienThoai;
     private Date ngay;
-    private Timer gio;
+    private String gio;
     private String doi;
     private String duong;
     private String loaiViPham;
@@ -29,7 +29,7 @@ public class ViPhamHanhLang {
                 '}';
     }
 
-    public ViPhamHanhLang(String soDienThoai, Date ngay, Timer gio, String loaiViPham, String duong, String noiDung, String doi) {
+    public ViPhamHanhLang(String soDienThoai, Date ngay, String gio, String loaiViPham, String duong, String noiDung, String doi) {
         this.soDienThoai = soDienThoai;
         this.ngay = ngay;
         this.gio = gio;
@@ -58,7 +58,7 @@ public class ViPhamHanhLang {
         this.ngay = ngay;
     }
 
-    public void setGio(Timer gio) {
+    public void setGio(String gio) {
         this.gio = gio;
     }
 
@@ -82,7 +82,7 @@ public class ViPhamHanhLang {
         return ngay;
     }
 
-    public Timer getGio() {
+    public String getGio() {
         return gio;
     }
 

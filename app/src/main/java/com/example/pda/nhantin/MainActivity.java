@@ -27,6 +27,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pda.model.ViPhamHanhLang;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -61,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
     SimpleDateFormat formatngay = new SimpleDateFormat("dd-MM-yyyy");
     SimpleDateFormat formatgio = new SimpleDateFormat("HH:mm a");
 
+    String chonDoi="";
+
+    ArrayList<ViPhamHanhLang>dsViPhamHanhLang=new ArrayList<ViPhamHanhLang>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +79,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addEvent() {
+
+        btnThongKe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent myIntent = new Intent(MainActivity.this, MainThongKeActivity.class);
+                startActivity(myIntent);
+
+
+            }
+        });
 
         //Loai Vi pham
         spDuong.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -184,6 +201,57 @@ public class MainActivity extends AppCompatActivity {
                 xuLyDanhBa();
             }
         });
+        btnLuu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                xuLyLuu();
+            }
+        });
+    }
+
+
+
+    private void xuLyLuu() {
+
+        try {
+            ViPhamHanhLang vp=new ViPhamHanhLang();
+            if(rdDoi1.isChecked())
+            { chonDoi=rdDoi1.getText().toString();}
+            else if (rdDoi2.isChecked())
+            {chonDoi=rdDoi2.getText().toString();}
+            else {
+                Toast.makeText(MainActivity.this, "Ban chua chon doi", Toast.LENGTH_LONG).show();
+            }
+
+            vp.setDoi(chonDoi);
+            vp.setSoDienThoai(txtSoDienThoai.getText().toString());
+            vp.setDuong(txtDuong.getText().toString());
+            vp.setLoaiViPham(txtLoaiViPham.getText().toString());
+            vp.setNoiDung(txtNoiDung.getText().toString());
+            vp.setGio((txtGio.getText().toString()));
+
+            vp.setNgay(formatngay.parse(txtNgay.getText().toString()));
+
+
+            Toast.makeText(MainActivity.this,
+                    vp.toString(),
+                    Toast.LENGTH_LONG).show();
+
+            dsViPhamHanhLang.add(vp);
+
+        } catch (ParseException e) {
+
+            // TODO Auto-generated catch block
+            Toast.makeText(MainActivity.this,
+                    "Loi",
+                    Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+
+
+
+
+
     }
 
     private void xulyThoat(View v) {
@@ -277,6 +345,27 @@ public class MainActivity extends AppCompatActivity {
 
             Toast.makeText(getApplicationContext(),
                     "Gui Thanh cong",
+                    Toast.LENGTH_LONG).show();
+
+                // Luu vao Array List
+
+            ViPhamHanhLang vp=new ViPhamHanhLang();
+
+            if(rdDoi1.isChecked()) chonDoi=rdDoi1.getText().toString();
+            else if (rdDoi2.isChecked()) chonDoi=rdDoi2.getText().toString();
+            else Toast.makeText(MainActivity.this,"Ban chua chon doi",Toast.LENGTH_LONG).show();
+
+            vp.setDoi(chonDoi);
+            vp.setSoDienThoai(txtSoDienThoai.getText().toString());
+            vp.setDuong(txtDuong.getText().toString());
+            vp.setLoaiViPham(txtLoaiViPham.getText().toString());
+            vp.setNoiDung(txtNoiDung.getText().toString());
+            vp.setNgay(formatngay.parse(txtNgay.getText().toString()));
+            vp.setGio((txtGio.getText().toString()));
+            dsViPhamHanhLang.add(vp);
+// Kiem tra xacs nhan xem da add doi tuong duoc chua
+            Toast.makeText(MainActivity.this,
+                    vp.toString(),
                     Toast.LENGTH_LONG).show();
 
         } catch (Exception e) {

@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Nhantin</string>
     <string-array name="stLoaiViPham">
-
         <item>Làm nhà</item>
         <item>Mái hiên</item>
         <item>Hàng rào</item>
@@ -11,12 +10,10 @@
         <item>Đấu nối</item>
         <item>Thi công</item>
         <item>Đào đắp đất</item>
-
-        </string-array>
+    </string-array>
 
 
     <string-array name="stDuong">
-
         <item>QL24</item>
         <item>ĐT671</item>
         <item>ĐT674</item>
@@ -34,12 +31,14 @@
         <item>Đường NH-MB-TR-NgọcLinh</item>
         <item>Đường NgọcHồi-DốcMuối</item>
 
-></string-array>
+        </string-array>
 
     <string-array name="stDanhBa">
         <item>01693140011</item>
         <item>0905442226</item>
         <item>01678734239</item>
-
     </string-array>
+
+
+
 </resources>
