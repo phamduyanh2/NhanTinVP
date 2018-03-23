@@ -1,5 +1,6 @@
 package com.example.pda.nhantin;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
@@ -8,9 +9,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.SmsManager;
@@ -68,15 +72,70 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<ViPhamHanhLang>dsViPhamHanhLang=new ArrayList<ViPhamHanhLang>();
 
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        kiemtraPermission(); // kiem tra xem da co cho phep truy cap chua
         addControl();
         addEvent();
 
+
     }
+
+    private void kiemtraPermission() {
+
+        int[] result = {ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_CONTACTS),
+                ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.SEND_SMS)};
+
+       if( result[0] == PackageManager.PERMISSION_DENIED||result[1] == PackageManager.PERMISSION_DENIED) {
+           Toast.makeText(MainActivity.this, "Ban phai cap quyen cho ung dung", Toast.LENGTH_SHORT).show();
+           addPermission();
+       }
+        else if (result[0] == PackageManager.PERMISSION_GRANTED) {
+       }
+    }
+
+    private void addPermission() {
+
+        ActivityCompat.requestPermissions(MainActivity.this,
+                new String[]{Manifest.permission.SEND_SMS,Manifest.permission.READ_CONTACTS},
+                1);
+    }
+
+    // Lay ket qua tu thong bao co cap quyen cho truy cạp tin nhan hay khong
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[],int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED&&grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted, yay! Do the
+                    Toast.makeText(MainActivity.this, "Cho phep truy cap vao danh ba va Tin nhan", Toast.LENGTH_SHORT).show();
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(MainActivity.this, "Permission denied to read your External storage", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
+
+
+
+
 
     private void addEvent() {
 
