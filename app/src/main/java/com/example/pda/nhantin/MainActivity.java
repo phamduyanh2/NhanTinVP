@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
     boolean lastSelectDanhBa = true;
     String luuNoiDung;
 
-    SimpleDateFormat formatngay = new SimpleDateFormat("dd-MM-yyyy");
+     SimpleDateFormat formatngay = new SimpleDateFormat("dd-MM-yyyy");
     SimpleDateFormat formatgio = new SimpleDateFormat("HH:mm a");
 
     String chonDoi="";
@@ -366,6 +367,26 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+
+// Doan ma duoi them du lieu vao bang nhung khong hieu sao khong the them vi Null (co the do trong bang
+        // ta chua tao moi recode voi cac gia tri mach dinh la null nen khong the them vao
+        // Tim hieu them google
+
+//    ContentValues row = new ContentValues();
+//    row.put("ID", 12);
+//    row.put("SoDienThoai", txtSoDienThoai.toString());
+//    row.put("Ngay", txtNgay.toString());
+//    row.put("Gio", txtGio.toString());
+//    row.put("LoaiViPham", txtLoaiViPham.toString());
+//    row.put("Duong", txtDuong.toString());
+//    row.put("NoiDung", txtNoiDung.toString());
+//
+//    if (rdDoi1.isChecked()) {
+//        row.put("Doi", rdDoi1.getText().toString());
+//    } else if (rdDoi2.isChecked()) {
+//        row.put("Doi", rdDoi2.getText().toString());
+//    }
+//  long r = database.insert("NoiDung", null, row);
 
 
 

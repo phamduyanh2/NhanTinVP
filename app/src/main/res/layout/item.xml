@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Ngay"
+            android:id="@+id/txtNgaylv"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textSize="12dp" />
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/textView17"
+            android:background="#f70404" />
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Duong"
+            android:id="@+id/txtDuonglv"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textSize="12dp" />
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView19"
+            android:background="#f70404"
+            android:text="New Text" />
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Doi"
+            android:id="@+id/txtDoilv"
+            android:layout_gravity="center"
+            android:autoText="false"
+            android:textAlignment="center"
+            android:textSize="12dp" />
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/textView21"
+            android:background="#f70404" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Noi Dung"
+            android:id="@+id/txtNoiDunglv"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textSize="12dp" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/textView9"
+        android:background="#f30202"
+        android:height="1dp" />
+
+</LinearLayout>

@@ -17,10 +17,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pda.adapter.DanhSachAdapter;
+import com.example.pda.model.ViPhamHanhLang;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class MainThongKeActivity extends AppCompatActivity {
 
+    SimpleDateFormat formatngay = new SimpleDateFormat("dd-MM-yyyy");
     RadioButton rdDoi1_2, rdDoi2_2;
     RadioGroup rdGroupDoi2;
 
@@ -42,8 +48,8 @@ public class MainThongKeActivity extends AppCompatActivity {
 
 // Phục vụ lấy danh sách List View:
     ListView lvDanhSach;
-    ArrayAdapter<String>adapterDanhSach;
-    ArrayList<String>dsDanhSach;
+    DanhSachAdapter adapterDanhSach;
+    ArrayList<ViPhamHanhLang>dsDanhSach;
 
     // Phục vụ lay dữ liệu ra va hien thi len
     String DATABASE_NAME="datatinnhan.db";
@@ -61,31 +67,34 @@ public class MainThongKeActivity extends AppCompatActivity {
     }
 
     private void showAllDanhSach() {
-    //Buoc 1: Mo Co so Du Lieu
-    database=openOrCreateDatabase(DATABASE_NAME,MODE_PRIVATE,null);
-        Cursor cursor =database.query("NoiDung",null,null,null,null,null,null); //Ten bang
-       // Cursor cursor2 =database.rawQuery("select * from noidung",null); //Ten bang
+        try {
 
-        dsDanhSach.clear();
-        while (cursor.moveToNext()) {
+            //Buoc 1: Mo Co so Du Lieu
+            database = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
+            Cursor cursor = database.query("NoiDung", null, null, null, null, null, null); //Ten bang
+            // Cursor cursor2 =database.rawQuery("select * from noidung",null); //Ten bang
 
-            int ma =cursor.getInt(0);
-            String soDienThoai=cursor.getString(1);
-            String ngay=cursor.getString(2);
-            String gio=cursor.getString(3);
-            String loaiViPham=cursor.getString(4);
-            String duong=cursor.getString(5);
-            String noiDung=cursor.getString(6);
-            String doi=cursor.getString(7);
+            dsDanhSach.clear();
+            while (cursor.moveToNext()) {
 
-            dsDanhSach.add(ma+"-"+soDienThoai+"\n"+ngay+"\n"+gio+"\n"+loaiViPham);
+                int ma = cursor.getInt(0);
+                String soDienThoai = cursor.getString(1);
+                String ngay = cursor.getString(2);
+                String gio = cursor.getString(3);
+                String loaiViPham = cursor.getString(4);
+                String duong = cursor.getString(5);
+                String noiDung = cursor.getString(6);
+                String doi = cursor.getString(7);
 
+
+                dsDanhSach.add(new ViPhamHanhLang(soDienThoai, formatngay.parse(ngay), gio, loaiViPham, duong, noiDung, doi));
+
+            }
+            cursor.close();
+            adapterDanhSach.notifyDataSetChanged();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-        cursor.close();
-        adapterDanhSach.notifyDataSetChanged();
-
-
-
     }
 
     private void addEvent() {
@@ -178,10 +187,10 @@ public class MainThongKeActivity extends AppCompatActivity {
         //Tao Du lieu de lay danh sach hien thi len List View
 
         lvDanhSach= (ListView) findViewById(R.id.lvDanhSach);
-        dsDanhSach=new ArrayList<>();
-        adapterDanhSach=new ArrayAdapter<String>(
+        dsDanhSach=new ArrayList<ViPhamHanhLang>();
+        adapterDanhSach=new DanhSachAdapter(
                 MainThongKeActivity.this,
-                android.R.layout.simple_list_item_1,
+                R.layout.item,
                 dsDanhSach);
         lvDanhSach.setAdapter(adapterDanhSach);
     }
