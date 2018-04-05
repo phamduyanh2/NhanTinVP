@@ -1,6 +1,8 @@
 package com.example.pda.nhantin;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +15,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class MainThongKeActivity extends AppCompatActivity {
 
@@ -22,7 +27,7 @@ public class MainThongKeActivity extends AppCompatActivity {
     Spinner spLoaiVP2, spDuong2;
 
     Button btnSaoLuu, btnQuayLai,btnThoat2,btnCapNhap;
-    ListView lvDanhSach;
+
 
     TextView txtLoaiViPham2, txtDuong2;
 
@@ -35,6 +40,15 @@ public class MainThongKeActivity extends AppCompatActivity {
     String[] arrLoaiVP2;
     String[] arrDuong2;
 
+// Phục vụ lấy danh sách List View:
+    ListView lvDanhSach;
+    ArrayAdapter<String>adapterDanhSach;
+    ArrayList<String>dsDanhSach;
+
+    // Phục vụ lay dữ liệu ra va hien thi len
+    String DATABASE_NAME="datatinnhan.db";
+    private static final String DB_PATH_SUFFIX = "/databases/";
+    SQLiteDatabase database=null;
 
 
     @Override
@@ -43,10 +57,38 @@ public class MainThongKeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_thong_ke);
         addControl();
         addEvent();
+        showAllDanhSach();
+    }
+
+    private void showAllDanhSach() {
+    //Buoc 1: Mo Co so Du Lieu
+    database=openOrCreateDatabase(DATABASE_NAME,MODE_PRIVATE,null);
+        Cursor cursor =database.query("NoiDung",null,null,null,null,null,null); //Ten bang
+       // Cursor cursor2 =database.rawQuery("select * from noidung",null); //Ten bang
+
+        dsDanhSach.clear();
+        while (cursor.moveToNext()) {
+
+            int ma =cursor.getInt(0);
+            String soDienThoai=cursor.getString(1);
+            String ngay=cursor.getString(2);
+            String gio=cursor.getString(3);
+            String loaiViPham=cursor.getString(4);
+            String duong=cursor.getString(5);
+            String noiDung=cursor.getString(6);
+            String doi=cursor.getString(7);
+
+            dsDanhSach.add(ma+"-"+soDienThoai+"\n"+ngay+"\n"+gio+"\n"+loaiViPham);
+
+        }
+        cursor.close();
+        adapterDanhSach.notifyDataSetChanged();
+
+
 
     }
 
-   private void addEvent() {
+    private void addEvent() {
 
         //Loai Vi pham
         spDuong2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -108,7 +150,7 @@ public class MainThongKeActivity extends AppCompatActivity {
         btnSaoLuu= (Button) findViewById(R.id.btnSaoLuu);
         btnQuayLai= (Button) findViewById(R.id.btnQuayLai);
         btnThoat2= (Button) findViewById(R.id.btnThoat2);
-        lvDanhSach= (ListView) findViewById(R.id.lvDanhSach);
+
 
         spDuong2= (Spinner) findViewById(R.id.spDuong2);
         spLoaiVP2 = (Spinner) findViewById(R.id.spLoai2);
@@ -133,7 +175,15 @@ public class MainThongKeActivity extends AppCompatActivity {
         spLoaiVP2.setAdapter(adapterLoaiVP2);
 
 
+        //Tao Du lieu de lay danh sach hien thi len List View
 
+        lvDanhSach= (ListView) findViewById(R.id.lvDanhSach);
+        dsDanhSach=new ArrayList<>();
+        adapterDanhSach=new ArrayAdapter<String>(
+                MainThongKeActivity.this,
+                android.R.layout.simple_list_item_1,
+                dsDanhSach);
+        lvDanhSach.setAdapter(adapterDanhSach);
     }
 
 

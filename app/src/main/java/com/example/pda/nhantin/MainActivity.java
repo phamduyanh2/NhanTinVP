@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
@@ -33,6 +34,13 @@ import android.widget.Toast;
 
 import com.example.pda.model.ViPhamHanhLang;
 
+import org.xml.sax.Parser;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -72,7 +80,10 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<ViPhamHanhLang>dsViPhamHanhLang=new ArrayList<ViPhamHanhLang>();
 
-
+// Phục vụ sao chép cơ sở dữ liệu vào
+    String DATABASE_NAME="datatinnhan.db";
+    private static final String DB_PATH_SUFFIX = "/databases/";
+    SQLiteDatabase database=null;
 
 
 
@@ -84,9 +95,56 @@ public class MainActivity extends AppCompatActivity {
         kiemtraPermission(); // kiem tra xem da co cho phep truy cap chua
         addControl();
         addEvent();
+        xuLyChepDuLieuTuAssetVaoMobile();
+
+    }
+
+    private void xuLyChepDuLieuTuAssetVaoMobile() {
+        try {
+            InputStream myInput;
+
+            myInput = getAssets().open(DATABASE_NAME);
+
+            // Path to the just created empty db
+            String outFileName = layDuongDanDatabase();
+
+            // if the path doesn't exist first, create it
+            File f = new File(getApplicationInfo().dataDir + DB_PATH_SUFFIX);
+
+            Toast.makeText(MainActivity.this,f.toString(),Toast.LENGTH_LONG).show();        //them vao xem duong dan file luu o dau
+
+            if (!f.exists())
+                f.mkdir();
+
+            // Open the empty db as the output stream
+            OutputStream myOutput = new FileOutputStream(outFileName);
+
+            // transfer bytes from the inputfile to the outputfile
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = myInput.read(buffer)) > 0) {
+                myOutput.write(buffer, 0, length);
+            }
+
+            // Close the streams
+            myOutput.flush();
+            myOutput.close();
+            myInput.close();
+        } catch (IOException e) {
+
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
 
     }
+
+    private String layDuongDanDatabase() {
+        return getApplicationInfo().dataDir + DB_PATH_SUFFIX+ DATABASE_NAME;
+
+
+    }
+
 
     private void kiemtraPermission() {
 
