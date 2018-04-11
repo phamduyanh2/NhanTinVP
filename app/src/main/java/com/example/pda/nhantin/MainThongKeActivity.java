@@ -32,6 +32,7 @@ public class MainThongKeActivity extends AppCompatActivity {
 
     Spinner spLoaiVP2, spDuong2;
 
+
     Button btnSaoLuu, btnQuayLai,btnThoat2,btnCapNhap;
 
 
@@ -64,7 +65,12 @@ public class MainThongKeActivity extends AppCompatActivity {
         addControl();
         addEvent();
         showAllDanhSach();
+
+
+
     }
+
+
 
     private void showAllDanhSach() {
         try {
@@ -73,6 +79,9 @@ public class MainThongKeActivity extends AppCompatActivity {
             database = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
             Cursor cursor = database.query("NoiDung", null, null, null, null, null, null); //Ten bang
             // Cursor cursor2 =database.rawQuery("select * from noidung",null); //Ten bang
+
+
+
 
             dsDanhSach.clear();
             while (cursor.moveToNext()) {
@@ -85,6 +94,7 @@ public class MainThongKeActivity extends AppCompatActivity {
                 String duong = cursor.getString(5);
                 String noiDung = cursor.getString(6);
                 String doi = cursor.getString(7);
+
 
 
                 dsDanhSach.add(new ViPhamHanhLang(soDienThoai, formatngay.parse(ngay), gio, loaiViPham, duong, noiDung, doi));
@@ -101,6 +111,16 @@ public class MainThongKeActivity extends AppCompatActivity {
 
         //Loai Vi pham
         spDuong2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+
+            //region Description
+            //<editor-fold desc="ac">
+
+            //</editor-fold>
+            //endregion
+
+
+
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position1, long id) {
@@ -120,6 +140,7 @@ public class MainThongKeActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
+
         });
 
         spLoaiVP2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -165,7 +186,7 @@ public class MainThongKeActivity extends AppCompatActivity {
         spLoaiVP2 = (Spinner) findViewById(R.id.spLoai2);
 
         txtDuong2= (TextView) findViewById(R.id.txtDuong2);
-        txtLoaiViPham2= (TextView) findViewById(R.id.txtLoaiVP2);
+        txtLoaiViPham2 = (TextView) findViewById(R.id.txtLoaiVP2);
 
         //Tạo dữ liệu cho Spiner Đường
         arrDuong2=getResources().getStringArray(R.array.stDuong);
@@ -182,6 +203,8 @@ public class MainThongKeActivity extends AppCompatActivity {
                 arrLoaiVP2);
         adapterLoaiVP2.setDropDownViewResource(android.R.layout.simple_spinner_item);
         spLoaiVP2.setAdapter(adapterLoaiVP2);
+
+
 
 
         //Tao Du lieu de lay danh sach hien thi len List View

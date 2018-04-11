@@ -74,18 +74,17 @@ public class MainActivity extends AppCompatActivity {
     boolean lastSelectDanhBa = true;
     String luuNoiDung;
 
-     SimpleDateFormat formatngay = new SimpleDateFormat("dd-MM-yyyy");
+    SimpleDateFormat formatngay = new SimpleDateFormat("dd-MM-yyyy");
     SimpleDateFormat formatgio = new SimpleDateFormat("HH:mm a");
 
-    String chonDoi="";
+    String chonDoi = "";
 
-    ArrayList<ViPhamHanhLang>dsViPhamHanhLang=new ArrayList<ViPhamHanhLang>();
+    ArrayList<ViPhamHanhLang> dsViPhamHanhLang = new ArrayList<ViPhamHanhLang>();
 
-// Phục vụ sao chép cơ sở dữ liệu vào
-    String DATABASE_NAME="datatinnhan.db";
+    // Phục vụ sao chép cơ sở dữ liệu vào
+    String DATABASE_NAME = "datatinnhan.db";
     private static final String DB_PATH_SUFFIX = "/databases/";
-    SQLiteDatabase database=null;
-
+    SQLiteDatabase database = null;
 
 
     @Override
@@ -112,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
             // if the path doesn't exist first, create it
             File f = new File(getApplicationInfo().dataDir + DB_PATH_SUFFIX);
 
-            Toast.makeText(MainActivity.this,f.toString(),Toast.LENGTH_LONG).show();        //them vao xem duong dan file luu o dau
+            Toast.makeText(MainActivity.this, f.toString(), Toast.LENGTH_LONG).show();        //them vao xem duong dan file luu o dau
 
             if (!f.exists())
                 f.mkdir();
@@ -141,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String layDuongDanDatabase() {
-        return getApplicationInfo().dataDir + DB_PATH_SUFFIX+ DATABASE_NAME;
+        return getApplicationInfo().dataDir + DB_PATH_SUFFIX + DATABASE_NAME;
 
 
     }
@@ -152,30 +151,29 @@ public class MainActivity extends AppCompatActivity {
         int[] result = {ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_CONTACTS),
                 ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.SEND_SMS)};
 
-       if( result[0] == PackageManager.PERMISSION_DENIED||result[1] == PackageManager.PERMISSION_DENIED) {
-           Toast.makeText(MainActivity.this, "Ban phai cap quyen cho ung dung", Toast.LENGTH_SHORT).show();
-           addPermission();
-       }
-        else if (result[0] == PackageManager.PERMISSION_GRANTED) {
-       }
+        if (result[0] == PackageManager.PERMISSION_DENIED || result[1] == PackageManager.PERMISSION_DENIED) {
+            Toast.makeText(MainActivity.this, "Ban phai cap quyen cho ung dung", Toast.LENGTH_SHORT).show();
+            addPermission();
+        } else if (result[0] == PackageManager.PERMISSION_GRANTED) {
+        }
     }
 
     private void addPermission() {
 
         ActivityCompat.requestPermissions(MainActivity.this,
-                new String[]{Manifest.permission.SEND_SMS,Manifest.permission.READ_CONTACTS},
+                new String[]{Manifest.permission.SEND_SMS, Manifest.permission.READ_CONTACTS},
                 1);
     }
 
     // Lay ket qua tu thong bao co cap quyen cho truy cạp tin nhan hay khong
     @Override
     public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[],int[] grantResults) {
+                                           String permissions[], int[] grantResults) {
         switch (requestCode) {
             case 1: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED&&grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted, yay! Do the
                     Toast.makeText(MainActivity.this, "Cho phep truy cap vao danh ba va Tin nhan", Toast.LENGTH_SHORT).show();
                 } else {
@@ -191,9 +189,6 @@ public class MainActivity extends AppCompatActivity {
             // permissions this app might request
         }
     }
-
-
-
 
 
     private void addEvent() {
@@ -223,10 +218,10 @@ public class MainActivity extends AppCompatActivity {
                         luuNoiDung = txtNoiDung.getText().toString();
                         View et = getCurrentFocus();        //Lay v tri con tro chuot
                         txtNoiDung = (EditText) et;
-                        txtNoiDung.setText(luuNoiDung.toString()+arrDuong[position1]+" ");
+                        txtNoiDung.setText(luuNoiDung.toString() + arrDuong[position1] + " ");
                         txtNoiDung.setSelection(txtNoiDung.getText().length()); // di chyen con tro chuot den cuoi
                     }
-                    lastSelectDuong=false;
+                    lastSelectDuong = false;
                 }
 
             }
@@ -238,14 +233,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
         spLoaiVP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position2, long id) {
                 if (parent.getId() == R.id.spLoai) {
 //                    lastSelectLoaiVP = position2;
                     if (!lastSelectLoaiVP) {
-
                         txtNoiDung.hasFocus();
                         luuNoiDung = txtNoiDung.getText().toString();
                         View et = getCurrentFocus();        //Lay v tri con tro chuot
@@ -253,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
                         txtNoiDung.setText(luuNoiDung.toString() + arrLoaiVP[position2] + " ");
                         txtNoiDung.setSelection(txtNoiDung.getText().length()); // di chyen con tro chuot den cuoi
                     }
-                    lastSelectLoaiVP=false;
+                    lastSelectLoaiVP = false;
                 }
             }
 
@@ -274,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
 //                    lastSelectDanhBa = position;
                     if (!lastSelectDanhBa)
                         txtSoDienThoai.setText(arrDanhBa[position]);
-                    else lastSelectDanhBa=false;
+                    else lastSelectDanhBa = false;
                 }
             }
 
@@ -297,7 +290,7 @@ public class MainActivity extends AppCompatActivity {
         btnThoat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 xulyThoat(v);
+                xulyThoat(v);
 
                 // chú ý truyền tham số view vào thì mới chạy được
             }
@@ -328,16 +321,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     private void xuLyLuu() {
 
         try {
-            ViPhamHanhLang vp=new ViPhamHanhLang();
-            if(rdDoi1.isChecked())
-            { chonDoi=rdDoi1.getText().toString();}
-            else if (rdDoi2.isChecked())
-            {chonDoi=rdDoi2.getText().toString();}
-            else {
+            ViPhamHanhLang vp = new ViPhamHanhLang();
+            if (rdDoi1.isChecked()) {
+                chonDoi = rdDoi1.getText().toString();
+            } else if (rdDoi2.isChecked()) {
+                chonDoi = rdDoi2.getText().toString();
+            } else {
                 Toast.makeText(MainActivity.this, "Ban chua chon doi", Toast.LENGTH_LONG).show();
             }
 
@@ -367,7 +359,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
 // Doan ma duoi them du lieu vao bang nhung khong hieu sao khong the them vi Null (co the do trong bang
         // ta chua tao moi recode voi cac gia tri mach dinh la null nen khong the them vao
         // Tim hieu them google
@@ -387,7 +378,6 @@ public class MainActivity extends AppCompatActivity {
 //        row.put("Doi", rdDoi2.getText().toString());
 //    }
 //  long r = database.insert("NoiDung", null, row);
-
 
 
     }
@@ -417,7 +407,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private final int REQUEST_CODE=99;
+    private final int REQUEST_CODE = 99;
+
     private void xuLyDanhBa() {
         Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
         startActivityForResult(intent, REQUEST_CODE);
@@ -441,7 +432,7 @@ public class MainActivity extends AppCompatActivity {
                             while (numbers.moveToNext()) {
                                 num = numbers.getString(numbers.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                                 String namePhone = numbers.getString(numbers.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-                                Toast.makeText(MainActivity.this, namePhone+":"+num, Toast.LENGTH_LONG).show();
+                                Toast.makeText(MainActivity.this, namePhone + ":" + num, Toast.LENGTH_LONG).show();
                                 txtSoDienThoai.setText(num.toString());
                             }
                         }
@@ -476,7 +467,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }, new IntentFilter("ACTION_MSG_SENT"));
             //Gọi hàm gửi tin nhắn đi
-            sms.sendTextMessage(txtSoDienThoai.getText().toString(), null, txtGio.getText()+"."+txtNgay.getText()+":"+txtNoiDung.getText() + "",
+            sms.sendTextMessage(txtSoDienThoai.getText().toString(), null, txtGio.getText() + "." + txtNgay.getText() + ":" + txtNoiDung.getText() + "",
                     pendingMsgSent, null);
             //finish();
 
@@ -485,13 +476,13 @@ public class MainActivity extends AppCompatActivity {
                     "Gui Thanh cong",
                     Toast.LENGTH_LONG).show();
 
-                // Luu vao Array List
+            // Luu vao Array List
 
-            ViPhamHanhLang vp=new ViPhamHanhLang();
+            ViPhamHanhLang vp = new ViPhamHanhLang();
 
-            if(rdDoi1.isChecked()) chonDoi=rdDoi1.getText().toString();
-            else if (rdDoi2.isChecked()) chonDoi=rdDoi2.getText().toString();
-            else Toast.makeText(MainActivity.this,"Ban chua chon doi",Toast.LENGTH_LONG).show();
+            if (rdDoi1.isChecked()) chonDoi = rdDoi1.getText().toString();
+            else if (rdDoi2.isChecked()) chonDoi = rdDoi2.getText().toString();
+            else Toast.makeText(MainActivity.this, "Ban chua chon doi", Toast.LENGTH_LONG).show();
 
             vp.setDoi(chonDoi);
             vp.setSoDienThoai(txtSoDienThoai.getText().toString());
@@ -515,55 +506,52 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-
     private void addControl() {
         txtSoDienThoai = (EditText) findViewById(R.id.txtSoDienThoai);
         spDanhBa = (Spinner) findViewById(R.id.spDanhBa);
         btnDanhBa = (ImageButton) findViewById(R.id.btnDanhBa);
         rdGroupDoi = (RadioGroup) findViewById(R.id.rdGroupDoi);
-        rdDoi1= (RadioButton) findViewById(R.id.rdDoi1);
-        rdDoi2= (RadioButton) findViewById(R.id.rdDoi2);
+        rdDoi1 = (RadioButton) findViewById(R.id.rdDoi1);
+        rdDoi2 = (RadioButton) findViewById(R.id.rdDoi2);
 
         txtNgay = (EditText) findViewById(R.id.txtNgay);
-        txtGio= (EditText) findViewById(R.id.txtGio);
-        btnNgay= (Button) findViewById(R.id.btnNgay);
-        btnGio= (Button) findViewById(R.id.btnGio);
+        txtGio = (EditText) findViewById(R.id.txtGio);
+        btnNgay = (Button) findViewById(R.id.btnNgay);
+        btnGio = (Button) findViewById(R.id.btnGio);
 
-        txtNoiDung= (EditText) findViewById(R.id.txtNoiDung);
-        txtLoaiViPham= (TextView) findViewById(R.id.txtLoaiVP);
-        txtDuong= (TextView) findViewById(R.id.txtDuong);
-        spDuong= (Spinner) findViewById(R.id.spDuong);
-        spLoaiVP= (Spinner) findViewById(R.id.spLoai);
+        txtNoiDung = (EditText) findViewById(R.id.txtNoiDung);
+        txtLoaiViPham = (TextView) findViewById(R.id.txtLoaiVP);
+        txtDuong = (TextView) findViewById(R.id.txtDuong);
+        spDuong = (Spinner) findViewById(R.id.spDuong);
+        spLoaiVP = (Spinner) findViewById(R.id.spLoai);
 //Phần button lệnh
-        btnGui= (Button) findViewById(R.id.btnGui);
-        btnThoat= (Button) findViewById(R.id.btnThoat);
-        btnThongKe= (Button) findViewById(R.id.btnThongKe);
-        btnLuu= (Button) findViewById(R.id.btnLuu);
-        btnClear= (Button) findViewById(R.id.btnClear);
-        btnHuy= (Button) findViewById(R.id.btnHuy);
+        btnGui = (Button) findViewById(R.id.btnGui);
+        btnThoat = (Button) findViewById(R.id.btnThoat);
+        btnThongKe = (Button) findViewById(R.id.btnThongKe);
+        btnLuu = (Button) findViewById(R.id.btnLuu);
+        btnClear = (Button) findViewById(R.id.btnClear);
+        btnHuy = (Button) findViewById(R.id.btnHuy);
 
 
 //Tạo dữ liệu cho Spiner DanhBa
-        arrDanhBa=getResources().getStringArray(R.array.stDanhBa);
-        adapterDanhba=new ArrayAdapter<String>(MainActivity.this,
+        arrDanhBa = getResources().getStringArray(R.array.stDanhBa);
+        adapterDanhba = new ArrayAdapter<String>(MainActivity.this,
                 android.R.layout.simple_list_item_1,
                 arrDanhBa);
         adapterDanhba.setDropDownViewResource(android.R.layout.simple_spinner_item);
         spDanhBa.setAdapter(adapterDanhba);
 
         //Tạo dữ liệu cho Spiner Đường
-        arrDuong=getResources().getStringArray(R.array.stDuong);
-        adapterDuong=new ArrayAdapter<String>(MainActivity.this,
+        arrDuong = getResources().getStringArray(R.array.stDuong);
+        adapterDuong = new ArrayAdapter<String>(MainActivity.this,
                 android.R.layout.simple_list_item_1,
                 arrDuong);
         adapterDuong.setDropDownViewResource(android.R.layout.simple_spinner_item);
         spDuong.setAdapter(adapterDuong);
 
         //Tạo dữ liệu cho Spiner Loai Vi Pham
-        arrLoaiVP=getResources().getStringArray(R.array.stLoaiViPham);
-        adapterLoaiVP=new ArrayAdapter<String>(MainActivity.this,
+        arrLoaiVP = getResources().getStringArray(R.array.stLoaiViPham);
+        adapterLoaiVP = new ArrayAdapter<String>(MainActivity.this,
                 android.R.layout.simple_list_item_1,
                 arrLoaiVP);
         adapterLoaiVP.setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -578,9 +566,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
-
-
 
 
 }
